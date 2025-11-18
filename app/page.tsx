@@ -1,9 +1,11 @@
 import InfiniteCanvas from '@/components/canvas/InfiniteCanvas'
 import PromptInput from '@/components/ui/PromptInput'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 
 export default function Home() {
   return (
-    <main className="relative h-screen w-screen overflow-hidden bg-slate-50">
+    <ErrorBoundary>
+      <main className="relative h-screen w-screen overflow-hidden bg-slate-50">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-10 p-6">
         <div className="mx-auto max-w-7xl">
@@ -23,6 +25,7 @@ export default function Home() {
 
       {/* Infinite Canvas */}
       <InfiniteCanvas />
-    </main>
+      </main>
+    </ErrorBoundary>
   )
 }

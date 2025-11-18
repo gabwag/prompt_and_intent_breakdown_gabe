@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Sparkles, Loader2 } from 'lucide-react'
 import { analyzePromptLogic } from '@/lib/ai/analyzePromptLogic'
 import { useGraphStore } from '@/lib/store/graphStore'
-import { cn, debounce } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 export default function PromptInput() {
   const [prompt, setPrompt] = useState('')
@@ -48,6 +48,9 @@ export default function PromptInput() {
           {/* Textarea */}
           <div className="relative">
             <textarea
+              id="prompt-input"
+              aria-label="LLM prompt input"
+              aria-describedby="prompt-help"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -62,6 +65,7 @@ export default function PromptInput() {
                 'text-slate-900 text-sm leading-relaxed'
               )}
               disabled={isAnalyzing}
+              aria-invalid={!!error}
             />
           </div>
 
@@ -74,12 +78,13 @@ export default function PromptInput() {
 
           {/* Actions */}
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-500">
+            <p id="prompt-help" className="text-xs text-slate-500">
               We&apos;ll analyze the structure and identify gaps in your prompt
             </p>
             <button
               onClick={handleAnalyze}
               disabled={isAnalyzing || !prompt.trim()}
+              aria-label="Analyze prompt structure"
               className={cn(
                 'flex items-center gap-2 px-6 py-3 rounded-xl',
                 'bg-gradient-to-r from-blue-500 to-indigo-500',
